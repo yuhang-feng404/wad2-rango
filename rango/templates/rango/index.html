@@ -8,11 +8,12 @@
 </head>
 
 <body>
+
     <h1>Rango says...</h1>
 
     <p>{{ boldmessage }}</p>
 
-    <!-- Most Liked Categories -->
+
     <h2>Most Liked Categories</h2>
 
     {% if categories %}
@@ -29,7 +30,7 @@
         <strong>No categories present.</strong>
     {% endif %}
 
-    <!-- Most Viewed Pages -->
+
     <h2>Most Viewed Pages</h2>
 
     <div>
@@ -37,7 +38,9 @@
             <ul>
                 {% for page in pages %}
                     <li>
-                        <a href="{{ page.url }}">{{ page.title }}</a>
+                        <a href="{{ page.url }}">
+                            {{ page.title }}
+                        </a>
                     </li>
                 {% endfor %}
             </ul>
@@ -47,9 +50,15 @@
     </div>
 
     <br>
+
+    <a href="{% url 'rango:add_category' %}">Add a New Category</a>
+
+    <br><br>
+
     <img src="{% static 'rango/images/Rango2011Poster.jpg' %}"
          alt="Picture of Rango"
          width="300">
+
 </body>
 </html>
 

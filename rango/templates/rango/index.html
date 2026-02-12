@@ -1,65 +1,39 @@
-<!DOCTYPE html>
-{% load static %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Rango</title>
-    <link rel="stylesheet" href="{% static 'rango/style.css' %}">
-</head>
+{% extends 'rango/base.html' %}
+{% load staticfiles %}
 
-<body>
+{% block title_block %}
+Homepage
+{% endblock %}
 
-    <h1>Rango says...</h1>
+{% block body_block %}
 
-    <p>{{ boldmessage }}</p>
+<h1>Rango says...</h1>
 
+<div>
+    {{ boldmessage }}
+</div>
 
-    <h2>Most Liked Categories</h2>
+<h2>Most Liked Categories</h2>
+<ul>
+    {% for category in categories %}
+        <li>
+            <a href="{% url 'rango:show_category' category.slug %}">
+                {{ category.name }}
+            </a>
+        </li>
+    {% endfor %}
+</ul>
 
-    {% if categories %}
-        <ul>
-            {% for category in categories %}
-                <li>
-                    <a href="{% url 'rango:show_category' category.slug %}">
-                        {{ category.name }}
-                    </a>
-                </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <strong>No categories present.</strong>
-    {% endif %}
+<h2>Most Viewed Pages</h2>
+<ul>
+    {% for page in pages %}
+        <li>
+            <a href="{{ page.url }}">{{ page.title }}</a>
+        </li>
+    {% endfor %}
+</ul>
 
+{% endblock %}
 
-    <h2>Most Viewed Pages</h2>
-
-    <div>
-        {% if pages %}
-            <ul>
-                {% for page in pages %}
-                    <li>
-                        <a href="{{ page.url }}">
-                            {{ page.title }}
-                        </a>
-                    </li>
-                {% endfor %}
-            </ul>
-        {% else %}
-            <strong>There are no pages present.</strong>
-        {% endif %}
-    </div>
-
-    <br>
-
-    <a href="{% url 'rango:add_category' %}">Add a New Category</a>
-
-    <br><br>
-
-    <img src="{% static 'rango/images/Rango2011Poster.jpg' %}"
-         alt="Picture of Rango"
-         width="300">
-
-</body>
-</html>
 
 

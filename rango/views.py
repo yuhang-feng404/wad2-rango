@@ -7,7 +7,10 @@ from rango.forms import CategoryForm, PageForm
 def index(request):
     context_dict = {}
 
+    # Top 5 liked categories
     category_list = Category.objects.order_by('-likes')[:5]
+
+    # Top 5 viewed pages
     page_list = Page.objects.order_by('-views')[:5]
 
     context_dict['boldmessage'] = "Crunchy, creamy, cookie, candy, cupcake!"
@@ -15,6 +18,13 @@ def index(request):
     context_dict['pages'] = page_list
 
     return render(request, 'rango/index.html', context=context_dict)
+
+
+def about(request):
+    context_dict = {}
+    context_dict['aboutmessage'] = "This is the about page."
+
+    return render(request, 'rango/about.html', context=context_dict)
 
 
 def show_category(request, category_name_slug):
@@ -50,6 +60,7 @@ def add_category(request):
 
 
 def add_page(request, category_name_slug):
+
     try:
         category = Category.objects.get(slug=category_name_slug)
     except Category.DoesNotExist:
@@ -69,13 +80,20 @@ def add_page(request, category_name_slug):
             page.views = 0
             page.save()
 
-            return redirect(reverse('rango:show_category',
-                                    kwargs={'category_name_slug': category_name_slug}))
+            return redirect(reverse(
+                'rango:show_category',
+                kwargs={'category_name_slug': category_name_slug}
+            ))
         else:
             print(form.errors)
 
-    context_dict = {'form': form, 'category': category}
+    context_dict = {
+        'form': form,
+        'category': category
+    }
+
     return render(request, 'rango/add_page.html', context=context_dict)
+
 
 
 

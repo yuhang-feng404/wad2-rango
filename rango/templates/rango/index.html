@@ -15,6 +15,11 @@
 
 <hr />
 
+<h2>Visits</h2>
+<p>Visits: {{ visits }}</p>
+
+<hr />
+
 <h2>Most Liked Categories</h2>
 <ul>
     {% for category in categories %}
@@ -41,20 +46,8 @@
     {% endfor %}
 </ul>
 
-<hr />
-
-<h2>User</h2>
-
-<ul>
-    {% if user.is_authenticated %}
-        <li>Welcome, {{ user.username }}!</li>
-        <li><a href="{% url 'rango:index' %}">Home</a></li>
-    {% else %}
-        <li><a href="{% url 'rango:register' %}">Register</a></li>
-    {% endif %}
-</ul>
-
 {% endblock %}
+
 
 
 

@@ -25,7 +25,6 @@ def index(request):
 def about(request):
     context_dict = {}
     context_dict['aboutmessage'] = "This is the about page."
-
     return render(request, 'rango/about.html', context=context_dict)
 
 
@@ -46,6 +45,7 @@ def show_category(request, category_name_slug):
     return render(request, 'rango/category.html', context=context_dict)
 
 
+@login_required
 def add_category(request):
     form = CategoryForm()
 
@@ -61,6 +61,7 @@ def add_category(request):
     return render(request, 'rango/add_category.html', {'form': form})
 
 
+@login_required
 def add_page(request, category_name_slug):
 
     try:
@@ -166,6 +167,10 @@ def user_logout(request):
 @login_required
 def restricted(request):
     return render(request, 'rango/restricted.html')
+
+
+
+
 
 
 

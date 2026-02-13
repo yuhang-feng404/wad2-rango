@@ -1,11 +1,19 @@
 {% extends 'rango/base.html' %}
-{% load staticfiles %}
 
 {% block title_block %}
     About Rango
 {% endblock %}
 
 {% block body_block %}
-    <h1>About</h1>
-    {{ aboutmessage }}
+
+<h1>About</h1>
+
+<p>{{ aboutmessage }}</p>
+
+<hr>
+
+<h2>Visits</h2>
+<p>Visits: {{ visits }}</p>
+
 {% endblock %}
+

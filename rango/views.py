@@ -19,12 +19,19 @@ def index(request):
     context_dict['categories'] = category_list
     context_dict['pages'] = page_list
 
+    request.session.set_test_cookie()
+
     return render(request, 'rango/index.html', context=context_dict)
 
 
 def about(request):
     context_dict = {}
     context_dict['aboutmessage'] = "This is the about page."
+
+    if request.session.test_cookie_worked():
+        print("TEST COOKIE WORKED!")
+        request.session.delete_test_cookie()
+
     return render(request, 'rango/about.html', context=context_dict)
 
 
@@ -128,11 +135,15 @@ def register(request):
         user_form = UserForm()
         profile_form = UserProfileForm()
 
-    return render(request,
-                  'rango/register.html',
-                  {'user_form': user_form,
-                   'profile_form': profile_form,
-                   'registered': registered})
+    return render(
+        request,
+        'rango/register.html',
+        {
+            'user_form': user_form,
+            'profile_form': profile_form,
+            'registered': registered
+        }
+    )
 
 
 def user_login(request):
@@ -167,6 +178,7 @@ def user_logout(request):
 @login_required
 def restricted(request):
     return render(request, 'rango/restricted.html')
+
 
 
 
